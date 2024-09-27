@@ -1,0 +1,78 @@
+/* Ensure the nav-wrapper takes the full width */
+.nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+  }
+  
+  .brand-logo {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .hamburger {
+    display: none; /* Initially hidden on larger screens */
+    cursor: pointer;
+  }
+  
+  .hamburger .line {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+  }
+  
+  .nav-items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-item {
+    margin-left: 20px;
+  }
+  
+  .nav-item span {
+    color: white;
+    cursor: pointer;
+  }
+  
+  .nav-item span:hover {
+    color: blue;
+  }
+  
+  /* Hamburger menu for smaller screens */
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+    }
+  
+    .nav-items {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      right: 0;
+      background-color: #333;
+      padding: 10px;
+      z-index: 1000; /* Ensure the navbar stays on top */
+    }
+  
+    .nav-items.open {
+      display: flex;
+    }
+  
+    .nav-item {
+      margin: 10px 0;
+    }
+  }
+  
+  /* Ensure content below the navbar is pushed down */
+  body {
+    margin-top: 60px; /* Push content down by the height of the navbar */
+  }
+  

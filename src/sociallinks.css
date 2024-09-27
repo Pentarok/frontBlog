@@ -1,0 +1,11 @@
+
+.social-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    
+  }
+  .social-container input{
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }

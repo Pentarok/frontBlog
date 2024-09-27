@@ -1,0 +1,18 @@
+.nav-wrapper{
+display: flex;
+justify-content: space-between;
+width: 100%;
+flex-wrap: nowrap;
+padding: 30px;
+}
+.nav-item-auth{
+    display: flex;
+    gap: 4rem;
+    margin-right: 10px;
+}
+.btn-logout{
+    cursor: pointer;
+
+}
+
+
