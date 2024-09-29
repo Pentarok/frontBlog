@@ -25,7 +25,7 @@ const Login = () => {
     setLoading(true); // Show loading state while making the request
     setMessage(''); // Clear any previous message
 
-    axios.post(`${serverUri}/login`, { email, password }, { withCredentials: true })
+    axios.post(`https://mern-blog-6mdu.vercel.app/login`, { email, password }, { withCredentials: true })
       .then(res => {
         setLoading(false); // Stop loading once we get a response
         console.log(res);
