@@ -53,8 +53,7 @@ const EditPost = () => {
   const [currentFile, setCurrentFile] = useState(null); // To store the current file details
   const { id } = useParams();
 
-  const serverUri = import.meta.env.VITE_SERVER;
-
+  const serverUri = 'https://mern-blog-6mdu.vercel.app';
 
 
   const inputRef = useRef(currentFile)

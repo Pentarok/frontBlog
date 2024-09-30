@@ -18,9 +18,9 @@ const Login = () => {
 
 
 
-const serverUri = import.meta.env.VITE_SERVER;
-  const handleLogin = (e) => {
 
+  const handleLogin = (e) => {
+const serverUri = 'https://mern-blog-6mdu.vercel.app';
     e.preventDefault();
     setLoading(true); // Show loading state while making the request
     setMessage(''); // Clear any previous message
