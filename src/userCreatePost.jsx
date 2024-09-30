@@ -33,7 +33,6 @@ const UserCreatePost = () => {
   const [imageUrl, setImageUrl] = useState(placeholder); // State for image URL
   const [isSubmitting, setIsSubmitting] = useState(false); // Track post creation state
 
-  const serverUri = 'https://mern-blog-6mdu.vercel.app'
 
 
   const handleFileChange = (e) => {
@@ -56,6 +55,7 @@ const UserCreatePost = () => {
     e.preventDefault();
     setIsSubmitting(true); // Set loading state
 
+  const serverUri = 'https://mern-blog-6mdu.vercel.app';
     const data = new FormData();
     data.append('file', file);
     data.append('content', content);
