@@ -34,8 +34,15 @@ const ResetPassword = () => {
       console.log(res);
 
       // If successful, set a success message or redirect the user
-      setMessage('Password successfully updated!');
-      navigate('/login');  // Redirect user to login page after successful password reset
+      if(res.data.status="Ok"){
+         setMessage('Password successfully updated!');
+        setTimeout(() => {
+         setMessage("")
+                navigate('/login');  // Redirect user to login page after successful password reset
+}, 3000);
+      }
+     
+
     
     } catch (error) {
       console.error(error);
