@@ -36,11 +36,7 @@ const UserCreatePost = () => {
 
 
   
-  useEffect(() => {
-    axios.get(`${serverUri}/user`, { withCredentials: true }).then((res) => {
-      console.log(res);
-    });
-  }, []);
+
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
