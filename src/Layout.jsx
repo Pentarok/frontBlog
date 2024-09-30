@@ -12,13 +12,20 @@ const Layout = () => {
     const navigate=useNavigate();
   const serverUri = import.meta.env.VITE_SERVER;
   const [error,setError]=useState(false)
- const validateUser=async ()=>{
+const validateUser=async ()=>{
   try {
     const res= await axios.get(`${serverUri}/verifyuser`,{  withCredentials: true });
     console.log(res)
-    if(res.data !=="Success"){
-       setError(true) 
+    if(res.data=='Success'){
+     
+    }else{
+      if(res.data =="Token is missing"){
+        navigate('/login')
+      }else {
+          setError(true)
+      }
     }
+   
    
    } catch (error) {
      console.log(error)
