@@ -56,16 +56,7 @@ const EditPost = () => {
     fetchPost();
   }, []);
 
-  useEffect(() => {
-    axios.get(`${serverUri}/user`, { withCredentials: true })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        console.error('Error fetching user data:', error);
-      });
-  }, []);
-
+ 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]); // Set a new file if selected
   };
