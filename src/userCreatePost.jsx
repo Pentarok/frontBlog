@@ -33,7 +33,7 @@ const UserCreatePost = () => {
   const [imageUrl, setImageUrl] = useState(placeholder); // State for image URL
   const [isSubmitting, setIsSubmitting] = useState(false); // Track post creation state
 
-  const serverUri = import.meta.env.VITE_SERVER;
+  const serverUri = 'https://mern-blog-6mdu.vercel.app'
 
 
   const handleFileChange = (e) => {
