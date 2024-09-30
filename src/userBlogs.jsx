@@ -342,7 +342,7 @@ const UserBlogs = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
  
-  const serverUri = import.meta.env.VITE_SERVER;
+  const serverUri = 'https://mern-blog-6mdu.vercel.app';
 
 
   const fetchPosts = async () => {
@@ -360,7 +360,7 @@ const UserBlogs = () => {
 
   const deletePost = async (postId, i) => {
     try {
-      const serverUri=import.meta.env.VITE_SERVER;
+
       const res = await axios.post(`${serverUri}/posts/${postId}`);
       console.log(res)
       if (res.data.status === 'Ok') {
@@ -395,12 +395,12 @@ const UserBlogs = () => {
 
   if (loading) {
     return (
-      <div className='text-center text-white d-flex justify-content-center align-items-center'>
+      <div className='text-center d-flex justify-content-center align-items-center'>
         <ThreeDots
           height="80"
           width="80"
           radius="9"
-          color="white"
+          color="blue"
           ariaLabel="three-dots-loading"
         />
       </div>
