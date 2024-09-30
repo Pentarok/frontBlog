@@ -15,7 +15,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false); // Add loading state
   const [termsAgreed, setTermsAgreed] = useState(false); // Add state for terms and conditions checkbox
 
-  const serverUri = import.meta.env.VITE_SERVER;
+  const serverUri = 'https://mern-blog-6mdu.vercel.app';
 
 
   const handleSignUp = (e) => {
