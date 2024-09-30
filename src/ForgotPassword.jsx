@@ -11,7 +11,7 @@ const ForgotPassword = () => {
  const [loading,setLoading]=useState(false);
   const [message, setMessage] = useState('');
   const [success,setSuccess]=useState(null);
-  const serverUri = import.meta.env.VITE_SERVER;
+  const serverUri = 'https://mern-blog-6mdu.vercel.app'
 
  const navigate = useNavigate();
   
