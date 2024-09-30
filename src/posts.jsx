@@ -68,7 +68,7 @@ import UserProfile from './DisplayLinks';
 
 const Posts = () => {
 
-  const serverUri = import.meta.env.VITE_SERVER;
+  const serverUri = 'https://mern-blog-6mdu.vercel.app';
 
 
 
