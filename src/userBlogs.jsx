@@ -360,8 +360,9 @@ const UserBlogs = () => {
 
   const deletePost = async (postId, i) => {
     try {
-      const serverUri=process.env.SERVER;
+      const serverUri=import.meta.env.VITE_SERVER;
       const res = await axios.post(`${serverUri}/posts/${postId}`);
+      console.log(res)
       if (res.data.status === 'Ok') {
         const updatedPosts = posts.filter((_, index) => index !== i);
         setPosts(updatedPosts);

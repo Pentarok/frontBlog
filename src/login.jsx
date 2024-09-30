@@ -15,18 +15,18 @@ const Login = () => {
   const [isSuccess, setIsSuccess] = useState(false); // To determine alert type (success/error)
   const navigate = useNavigate();
 
-  const serverUri = 'http://localhost:3000'
 
 
 
+const serverUri = import.meta.env.VITE_SERVER;
   const handleLogin = (e) => {
 
     e.preventDefault();
     setLoading(true); // Show loading state while making the request
     setMessage(''); // Clear any previous message
 
-    axios.post(`https://mern-blog-6mdu.vercel.app/login`, { email, password }, { withCredentials: true,
-                                                                                 timeout: 15000 // Set timeout to 15 seconds})
+    axios.post(`${serverUri}/login`, { email, password }, { withCredentials: true,
+                                                                                 timeout: 15000})
       .then(res => {
         setLoading(false); // Stop loading once we get a response
         console.log(res);
