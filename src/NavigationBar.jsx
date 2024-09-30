@@ -14,6 +14,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuth from './Auth';
 
 const pages = [
   { name: 'Home', path: '/user' },
@@ -32,9 +33,10 @@ function ResponsiveAppBar() {
   const [userPhotoURL, setUserPhotoURL] = useState('');
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
-  const [session, setSession] = useState(false);
 
-  const serverUri = import.meta.env.VITE_SERVER;
+ 
+  const { session}=useAuth()
+  const serverUri = 'https://mern-blog-6mdu.vercel.app';
 
 
   const handleOpenNavMenu = (event) => {

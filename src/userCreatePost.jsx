@@ -7,6 +7,22 @@ import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
 import useAuth from './Auth';
+const modules = {
+  toolbar: [
+    [{ 'header': [1, 2, 3, false] }],
+    [{ 'font': [] }],
+    [{ 'size': [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+    ['link', 'image'],
+    [{ 'color': [] }, { 'background': [] }],  // Color and background color
+    ['clean']  // Clear formatting
+  ],
+  clipboard: {
+    matchVisual: false, // Disable automatic inline styles conversion
+  }
+};
+
 
 const formats = [
   'header',
@@ -22,8 +38,10 @@ const formats = [
   'indent',
   'link',
   'image',
-  'color',
+  'color', // Add color to formats
+  'background' // Add background color to formats
 ];
+
 
 const UserCreatePost = () => {
   const [title, setTitle] = useState('');
@@ -69,7 +87,7 @@ const UserCreatePost = () => {
     // Timeout to abort the request after 5 seconds
     const timeoutId = setTimeout(() => {
       controller.abort();
-    }, 20000);
+    }, 50000);
 
     try {
       const res = await fetch(`${serverUri}/posts`, {
@@ -174,7 +192,14 @@ const UserCreatePost = () => {
               />
             </div>
             <div>
-              <ReactQuill value={content} onChange={setContent} formats={formats} required />
+            <ReactQuill
+  value={content}
+  onChange={setContent}
+  modules={modules}  // Ensure you're passing the modules prop
+  formats={formats}  // Ensure you're passing the formats prop
+  required
+/>
+
             </div>
             <div>
               <button type="submit" className="post-btn" disabled={isSubmitting}>

@@ -7,6 +7,24 @@ import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
 
+
+const modules = {
+  toolbar: [
+    [{ 'header': [1, 2, 3, false] }],
+    [{ 'font': [] }],
+    [{ 'size': [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+    ['link', 'image'],
+    [{ 'color': [] }, { 'background': [] }],  // Color and background color
+    ['clean']  // Clear formatting
+  ],
+  clipboard: {
+    matchVisual: false, // Disable automatic inline styles conversion
+  }
+};
+
+
 const formats = [
   'header',
   'font',
@@ -21,7 +39,8 @@ const formats = [
   'indent',
   'link',
   'image',
-  'color',
+  'color', // Add color to formats
+  'background' // Add background color to formats
 ];
 
 const EditPost = () => {
@@ -148,7 +167,7 @@ const EditPost = () => {
               />
             </div>
             <div>
-              <ReactQuill value={content} onChange={setContent} formats={formats} />  {/* Correctly bind content */}
+              <ReactQuill value={content} onChange={setContent} formats={formats} modules={modules} />  {/* Correctly bind content */}
             </div>
             <div>
               <button className='post-btn' onClick={UpdatePost} disabled={isUpdating}>{isUpdating?'Updating Post...':'Update Post'}</button>
