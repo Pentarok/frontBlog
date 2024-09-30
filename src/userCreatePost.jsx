@@ -69,7 +69,7 @@ const UserCreatePost = () => {
     // Timeout to abort the request after 5 seconds
     const timeoutId = setTimeout(() => {
       controller.abort();
-    }, 20000);
+    }, 50000);
 
     try {
       const res = await fetch(`${serverUri}/posts`, {
