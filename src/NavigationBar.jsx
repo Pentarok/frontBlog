@@ -37,17 +37,7 @@ function ResponsiveAppBar() {
   const serverUri = import.meta.env.VITE_SERVER;
 
 
-  useEffect(() => {
-    axios.get(`${serverUri}/user`, { withCredentials: true })
-      .then(res => {
-        console.log(res)
-        if (res.data.message === 'Login success') {
-          setSession(true);
-        } else {
-          
-        }
-      });
-  }, []);
+ 
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
