@@ -14,7 +14,7 @@ const useAuth = () => {
     const serverUri='https://mern-blog-6mdu.vercel.app';
     try {
       const res = await axios.get(`${serverUri}/verifyuser`, { withCredentials: true });
-      console.log(res);
+      
 
       // Check the response data structure
       if (res.data.message === 'Success') {
