@@ -140,7 +140,7 @@ useEffect(()=>{
             <div className="content">
               <h5 className='text-success'>{post.title}</h5>
               <div
-                className="text-white"
+                className=""
                 dangerouslySetInnerHTML={{ __html: post.content }}
               ></div>
               <div className="author">
