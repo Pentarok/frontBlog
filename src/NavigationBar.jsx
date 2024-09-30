@@ -37,8 +37,6 @@ function ResponsiveAppBar() {
   const serverUri = import.meta.env.VITE_SERVER;
 
 
- 
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

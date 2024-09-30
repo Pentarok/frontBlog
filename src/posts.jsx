@@ -125,6 +125,7 @@ useEffect(()=>{
 
   return (
     <div>
+      <h1 className='text-center' style={{color:'purple'}}>Posts</h1>
       {posts.map((post, i) => (
         <div className="larger-container" key={i}>
           <div className="image-content-wrapper">

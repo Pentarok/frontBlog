@@ -6,6 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
+import useAuth from './Auth';
 
 const formats = [
   'header',
@@ -35,9 +36,6 @@ const UserCreatePost = () => {
   const serverUri = import.meta.env.VITE_SERVER;
 
 
-  
-
-
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
@@ -64,15 +62,29 @@ const UserCreatePost = () => {
     data.append('title', title);
     data.append('summary', summary);
 
+    // Create an AbortController
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    // Timeout to abort the request after 5 seconds
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, 20000);
+
     try {
       const res = await fetch(`${serverUri}/posts`, {
         credentials: 'include',
         method: 'POST',
         body: data,
+        signal, // Pass the signal to the request
       });
+
+      clearTimeout(timeoutId); // Clear timeout if request is successful
+
       const result = await res.json();
-console.log(result);
-      if (result.status=='Ok') {
+      console.log(result);
+
+      if (result.status === 'Ok') {
         toast.success('Post created successfully!', {
           position: "top-right",
           autoClose: 3000,
@@ -101,16 +113,29 @@ console.log(result);
         });
       }
     } catch (error) {
-      console.error('Error creating post:', error);
-      toast.error('Error creating post, please try again later.', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      if (error.name === 'AbortError') {
+        toast.error('Request timed out. Check your internet connection and try again.', {
+          position: "bottom-center",
+          
+          autoClose: 12000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        console.error('Error creating post:', error);
+        toast.error('Error creating post, please try again later.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } finally {
       setIsSubmitting(false); // Reset loading state
     }

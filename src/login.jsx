@@ -15,7 +15,7 @@ const Login = () => {
   const [isSuccess, setIsSuccess] = useState(false); // To determine alert type (success/error)
   const navigate = useNavigate();
 
-  const serverUri = import.meta.env.VITE_SERVER;
+  const serverUri = 'http://localhost:3000'
 
 
 

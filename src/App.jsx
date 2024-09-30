@@ -20,6 +20,7 @@ import Layout from './Layout.jsx';
 import Posts from './posts.jsx';
 import HomeLayout from './homelayout.jsx';
 import Profile from './UserPage';
+import UserHome from './UserHome.jsx';
 function App() {
   return (
     <BrowserRouter>
@@ -41,7 +42,7 @@ function App() {
 
        <Route path="/" element={<Layout />}>
             <Route path="/blogs" element={<UserBlogs />} />
-            <Route path="/user" element={<Posts />} />
+            <Route path="/user" element={<UserHome />} />
             <Route path="/user/profile" element={<Profile />} />
             <Route path="/create/post" element={<UserCreatePost />} />
             
