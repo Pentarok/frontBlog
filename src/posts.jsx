@@ -1,67 +1,8 @@
-/* import React, { useContext, useState } from 'react'
-
-import image from './assets/study.jpeg'
-import './posts.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { PostContext } from './homepage';
-
-const Posts = () => {
-   
-    const posts = useContext(PostContext)
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-    
-      const options = {
-        weekday: 'long', // Example: 'Tuesday'
-        year: 'numeric',
-        month: 'long', // Example: 'September'
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true // 12-hour clock (AM/PM)
-      };
-    
-      return date.toLocaleString('en-US', options);
-    }
-    
- 
-    
-     
-  return (
-    <div>
-              <div>
-
-
-        {posts.map((post,i)=>
-        <div className="larger-container">
-       
-        <div className="image-content-wrapper" key={i} >
-            <div className="image">
-              <img src={`${serverUri}/${post.file}`} alt="" />
-            </div>
-                       <div className="content">
-                    <div className=" text-white"  dangerouslySetInnerHTML={{__html:post.content}}>
-                  
-                        </div>
-                        <div className='author'>
-                          <p className='text-white'>By &nbsp;<i>{post.author}</i></p>
-                          <p className='text-white'>Posted <span className='date-info'> {formatDate(post.createdAt)}</span></p>
-                        </div>
-                  </div>
-                        
-  </div>
-  </div> )}
-
-</div>
-    </div>
-  )
-}
-
-export default Posts */
 
 import React, { useEffect, useState } from 'react';
 import './posts.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import { ThreeDots } from 'react-loader-spinner';
 
 import UserProfile from './DisplayLinks';
