@@ -29,11 +29,11 @@ const Layout = () => {
   };
 
   // Redirect the user to open in the external browser
-
   const openInBrowser = () => {
-  const externalBrowserLink = 'https://front-blog-theta.vercel.app'; // Replace with your website URL
-  window.location.href = externalBrowserLink; // Redirect to external browser
-};
+    const externalBrowserLink = 'https://front-blog-theta.vercel.app'; // Replace with your website URL
+    window.location.href = externalBrowserLink; // Redirect to external browser
+  };
+
   useEffect(() => {
     detectInAppBrowser();
   }, []);
