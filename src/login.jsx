@@ -19,45 +19,54 @@ const Login = () => {
 
 
 
-  const handleLogin = (e) => {
-const serverUri = 'https://mern-blog-6mdu.vercel.app';
-    e.preventDefault();
-    setLoading(true); // Show loading state while making the request
-    setMessage(''); // Clear any previous message
+ const handleLogin = (e) => {
+  const serverUri = 'https://mern-blog-6mdu.vercel.app';
+  e.preventDefault();
+  setLoading(true); // Show loading state while making the request
+  setMessage(''); // Clear any previous message
 
-    axios.post(`${serverUri}/login`, { email, password }, { withCredentials: true,
-                                                                                 timeout: 15000})
-      .then(res => {
-        setLoading(false); // Stop loading once we get a response
-        console.log(res);
+  axios.post(`${serverUri}/login`, { email, password }, { withCredentials: true, timeout: 15000 })
+    .then(res => {
+      setLoading(false); // Stop loading once we get a response
+      console.log(res);
 
-        if (res.data.status === '405') {
-          setMessage(res.data.message); // Show error message
-          setIsSuccess(false); // Set to error
-
-          setTimeout(() => {
-            setMessage('');
-          }, 2000);
-          
-        } else {
-          setMessage('Login successful!'); // Show success message
-          setIsSuccess(true); // Set to success
-
-          // Navigate based on user role
-          if (res.data.user.role === 'admin') {
-            navigate('/dashboard');
-          } else {
-            navigate('/user');
-          }
-        }
-      })
-      .catch(err => {
-        setLoading(false); // Stop loading if there's an error
-        console.log(err);
-        setMessage('Invalid credentials. Please try again.'); // Show error message
+      if (res.data.status === '405') {
+        setMessage(res.data.message); // Show error message
         setIsSuccess(false); // Set to error
-      });
-  };
+
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
+      } else {
+        setMessage('Login successful!'); // Show success message
+        setIsSuccess(true); // Set to success
+
+        // Create an object to store in localStorage
+        const userData = {
+          token: res.data.token, // Assuming token is sent in the response
+          userId: res.data.user.id, // Assuming user ID is sent in the response
+          author: res.data.user.name // Assuming author is sent in the response
+        };
+
+        // Store the user data object in localStorage as a JSON string
+        localStorage.setItem('userData', JSON.stringify(userData));
+
+        // Navigate based on user role
+        if (res.data.user.role === 'admin') {
+          navigate('/dashboard');
+        } else {
+          navigate('/user');
+        }
+      }
+    })
+    .catch(err => {
+      setLoading(false); // Stop loading if there's an error
+      console.log(err);
+      setMessage('Invalid credentials. Please try again.'); // Show error message
+      setIsSuccess(false); // Set to error
+    });
+};
+
 
   return (
     <div className='main-container'>
