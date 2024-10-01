@@ -9,21 +9,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
-const pages = [
-/*   { name: 'Home', path: '/user' },
-  { name: 'All Blogs', path: '/blogs' },
-  { name: 'Create New Post', path: '/create/post' }, */
-];
+const pages = [];
 
 const settings = [
   { name: 'Logout', path: '/login' },
-  { name: 'profile', path: '/user/profile' },
+  { name: 'Profile', path: '/admin/profile' },
 ];
 
 function ResponsiveAppBar() {
@@ -35,7 +30,7 @@ function ResponsiveAppBar() {
   const [session, setSession] = useState(false);
 
   useEffect(() => {
-    axios.get(`${serverUri}/user/status`, { withCredentials: true })
+    axios.get(`${serverUri}/admin/status`, { withCredentials: true })
       .then(res => {
         if (res.data === 'Ok') {
           setSession(true);
@@ -43,7 +38,7 @@ function ResponsiveAppBar() {
           navigate('/login');
         }
       });
-  }, []);
+  }, [navigate]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -62,35 +57,20 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    fetch('http://localhost:3000/logout', {
-      method: 'POST',
-      credentials: 'include', // This is important to include cookies in the request
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message === 'Logout successful') {
-          // Show toast notification for logout success
-          toast.success('Logout successful! Redirecting...', {
-            position: 'top-right',
-            autoClose: 2000, // Toast message will close after 2 seconds
-          });
-      
-          // Delay redirect by 2 seconds
-          setTimeout(() => {
-            navigate('/login'); // Redirect to login after logout
-          }, 2500); // Slight delay after the toast disappears
-        } else {
-          console.error('Logout failed');
-          toast.error('Logout failed', {
-            position: 'top-right',
-            autoClose: 2000, // Toast message will close after 2 seconds
-          });
-      
-        }
-      })
-      .catch(error => {
-        console.error('Error during logout:', error);
-      });
+    // Remove the token from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+
+    // Show toast notification for logout success
+    toast.success('Logout successful! Redirecting...', {
+      position: 'top-right',
+      autoClose: 2000,
+    });
+
+    // Delay redirect by 2 seconds
+    setTimeout(() => {
+      navigate('/login');
+    }, 2500);
   };
 
   return (
@@ -110,11 +90,11 @@ function ResponsiveAppBar() {
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
-                backgroundColor:'black',
+                backgroundColor: 'black',
                 textDecoration: 'none',
               }}
             >
-              {/* Add logo or name here */}
+              {/* Add admin logo or name here */}
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -131,15 +111,9 @@ function ResponsiveAppBar() {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
+                transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
               >
@@ -168,21 +142,15 @@ function ResponsiveAppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Avatar" src={userPhotoURL} />
+                  <Avatar alt="Admin Avatar" src={userPhotoURL} />
                 </IconButton>
               </Tooltip>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
