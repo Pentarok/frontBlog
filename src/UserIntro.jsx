@@ -9,7 +9,7 @@ const UserIntro = () => {
     <div>
       <div>
         {user ? ( // Check if user exists
-          <h5 className='text-center'>Hello, welcome back &nbsp;{user.email}</h5> // Display user email
+          <h5 className='text-center'>Hello, welcome back &nbsp;{user.name}</h5> // Display user email
         ) : (
           <h5 className='text-center'>Hello, welcome back!</h5> // Default message if no user data
         )}
