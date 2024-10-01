@@ -9,8 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,7 +22,7 @@ const pages = [
 
 const settings = [
   { name: 'Logout', path: '/home' },
-  { name: 'profile', path: '/user/profile' },
+  { name: 'Profile', path: '/user/profile' },
 ];
 
 function ResponsiveAppBar() {
@@ -34,10 +32,7 @@ function ResponsiveAppBar() {
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
- 
-  const { session}=useAuth()
-  const serverUri = 'https://mern-blog-6mdu.vercel.app';
-
+  const { session } = useAuth();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -56,35 +51,20 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    fetch(`${serverUri}/logout`, {
-      method: 'POST',
-      credentials: 'include', // This is important to include cookies in the request
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message === 'Logout successful') {
-          // Show toast notification for logout success
-          toast.success('Logout successful! Redirecting...', {
-            position: 'top-right',
-            autoClose: 2000, // Toast message will close after 2 seconds
-          });
-      
-          // Delay redirect by 2 seconds
-          setTimeout(() => {
-            navigate('/login'); // Redirect to login after logout
-          }, 2500); // Slight delay after the toast disappears
-        } else {
-          console.error('Logout failed');
-          toast.error('Logout failed', {
-            position: 'top-right',
-            autoClose: 2000, // Toast message will close after 2 seconds
-          });
-      
-        }
-      })
-      .catch(error => {
-        console.error('Error during logout:', error);
-      });
+    // Remove the token from localStorage
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+
+    // Show toast notification for logout success
+    toast.success('Logout successful! Redirecting...', {
+      position: 'top-right',
+      autoClose: 2000,
+    });
+
+    // Delay redirect by 2 seconds to allow the toast notification to show
+    setTimeout(() => {
+      navigate('/login');
+    }, 2500);
   };
 
   return (
@@ -104,7 +84,6 @@ function ResponsiveAppBar() {
                 fontWeight: 700,
                 letterSpacing: '.3rem',
                 color: 'inherit',
-                backgroundColor:'black',
                 textDecoration: 'none',
               }}
             >
@@ -125,21 +104,18 @@ function ResponsiveAppBar() {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
+                transformOrigin={{ vertical: 'top', horizontal: 'left' }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
               >
                 {pages.map((page) => (
                   <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                    <Link to={page.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link
+                      to={page.path}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
                       {page.name}
                     </Link>
                   </MenuItem>
@@ -168,15 +144,9 @@ function ResponsiveAppBar() {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                 keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
@@ -188,7 +158,10 @@ function ResponsiveAppBar() {
                   ) : (
                     setting.name !== 'Logout' && (
                       <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                        <Link to={setting.path} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link
+                          to={setting.path}
+                          style={{ textDecoration: 'none', color: 'inherit' }}
+                        >
                           <Typography textAlign="center">{setting.name}</Typography>
                         </Link>
                       </MenuItem>
@@ -201,7 +174,6 @@ function ResponsiveAppBar() {
         </Box>
       </AppBar>
 
-      {/* ToastContainer must be rendered to display the toast notifications */}
       <ToastContainer />
     </>
   );
