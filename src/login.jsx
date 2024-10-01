@@ -44,7 +44,7 @@ const serverUri = 'https://mern-blog-6mdu.vercel.app';
           setIsSuccess(true); // Set to success
 
           // Navigate based on user role
-          if (res.data.userExist.role === 'admin') {
+          if (res.data.user.role === 'admin') {
             navigate('/dashboard');
           } else {
             navigate('/user');
