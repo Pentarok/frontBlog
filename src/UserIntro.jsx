@@ -4,12 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const UserIntro = () => {
   const { user } = useContext(UserContext);
-
+console.log(user);
   return (
     <div>
       <div>
         {user ? ( // Check if user exists
-          <h5 className='text-center'>Hello, welcome back &nbsp;{user.name}</h5> // Display user email
+          <h5 className='text-center'>Hello, welcome back &nbsp;{user.email}</h5> // Display user email
         ) : (
           <h5 className='text-center'>Hello, welcome back!</h5> // Default message if no user data
         )}
