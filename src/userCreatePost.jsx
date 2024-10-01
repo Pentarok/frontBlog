@@ -139,7 +139,7 @@ const UserCreatePost = () => {
           progress: undefined,
         });
       } else {
-        console.error('Error creating post:', error);
+     
         toast.error('Error creating post, please try again later.', {
           position: "top-right",
           autoClose: 3000,
