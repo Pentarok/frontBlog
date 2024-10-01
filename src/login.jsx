@@ -40,7 +40,7 @@ const Login = () => {
 
           // Store token and user data in localStorage
           localStorage.setItem('token', res.data.token); // Assuming token is sent in the response
-          localStorage.setItem('userId', res.data.user.id); // Assuming user ID is sent in the response
+          localStorage.setItem('userId', res.data.user._id); // Assuming user ID is sent in the response
 
           // Navigate based on user role
           if (res.data.user.role === 'admin') {
