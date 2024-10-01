@@ -18,6 +18,7 @@ const useAuth = () => {
               Authorization: `Bearer ${token}` // Pass the token in Authorization header
             }
           });
+          console.log(response)
           if (response.data && response.data.user) {
             setUser(response.data.user);
             setSession(true);
