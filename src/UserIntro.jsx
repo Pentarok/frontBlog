@@ -1,21 +1,24 @@
-import React from 'react'
-import { useContext } from 'react'
-import { UserContext } from './Layout'
+import React, { useContext } from 'react';
+import { UserContext } from './Layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
-const UserIntro = () => {
 
-    const userData = useContext(UserContext)
+const UserIntro = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div>
-        <div>
-          
-           <h5 className='text-center'>Hello welcome back &nbsp;{userData.user}</h5>
-        </div>
-        <div className="info-container">
-           {/*   to serve dynamic content */}
-        </div>
+      <div>
+        {user ? ( // Check if user exists
+          <h5 className='text-center'>Hello, welcome back &nbsp;{user.email}</h5> // Display user email
+        ) : (
+          <h5 className='text-center'>Hello, welcome back!</h5> // Default message if no user data
+        )}
+      </div>
+      <div className="info-container">
+        {/* Render additional dynamic content here if needed */}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserIntro
+export default UserIntro;
