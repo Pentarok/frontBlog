@@ -6,7 +6,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import Quill styles
 import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify styles
-import useAuth from './Auth';
+
 const modules = {
   toolbar: [
     [{ 'header': [1, 2, 3, false] }],
@@ -22,7 +22,6 @@ const modules = {
     matchVisual: false, // Disable automatic inline styles conversion
   }
 };
-
 
 const formats = [
   'header',
@@ -42,7 +41,6 @@ const formats = [
   'background' // Add background color to formats
 ];
 
-
 const UserCreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -50,8 +48,10 @@ const UserCreatePost = () => {
   const [summary, setSummary] = useState('');
   const [imageUrl, setImageUrl] = useState(placeholder); // State for image URL
   const [isSubmitting, setIsSubmitting] = useState(false); // Track post creation state
+  const inputRef = useRef(null);
 
-
+  // Check if device is mobile
+  const isMobile = window.innerWidth < 768;
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -67,28 +67,27 @@ const UserCreatePost = () => {
     }
   };
 
-  const inputRef = useRef(null);
-
   const CreatePost = async (e) => {
     e.preventDefault();
     setIsSubmitting(true); // Set loading state
 
-  const serverUri = 'https://mern-blog-6mdu.vercel.app';
+    const serverUri = 'https://mern-blog-6mdu.vercel.app';
     const data = new FormData();
-    data.append('file', file);
+    
+    // Append file only if it exists, ensuring mobile compatibility
+    data.append('file', file || ''); 
     data.append('content', content);
     data.append('title', title);
     data.append('summary', summary);
 
-    // Create an AbortController
+    // Create an AbortController for handling timeouts
     const controller = new AbortController();
     const signal = controller.signal;
 
-    // Timeout to abort the request after 5 seconds
- const timeoutId = setTimeout(() => {
-   controller.abort();
-}, 100000);  // Increase timeout to 100 seconds
-
+    // Timeout to abort the request after 100 seconds for slower mobile connections
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, 100000);  // Increased timeout to 100 seconds for mobile
 
     try {
       const res = await fetch(`${serverUri}/posts`, {
@@ -135,7 +134,6 @@ const UserCreatePost = () => {
       if (error.name === 'AbortError') {
         toast.error('Request timed out. Check your internet connection and try again.', {
           position: "bottom-center",
-          
           autoClose: 12000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -193,14 +191,23 @@ const UserCreatePost = () => {
               />
             </div>
             <div>
-            <ReactQuill
-  value={content}
-  onChange={setContent}
-  modules={modules}  // Ensure you're passing the modules prop
-  formats={formats}  // Ensure you're passing the formats prop
-  required
-/>
-
+              {/* Use textarea instead of Quill editor on mobile */}
+              {isMobile ? (
+                <textarea
+                  placeholder="Content"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  required
+                />
+              ) : (
+                <ReactQuill
+                  value={content}
+                  onChange={setContent}
+                  modules={modules}
+                  formats={formats}
+                  required
+                />
+              )}
             </div>
             <div>
               <button type="submit" className="post-btn" disabled={isSubmitting}>
